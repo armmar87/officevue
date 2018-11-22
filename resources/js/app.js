@@ -9,6 +9,22 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import Lang from 'lang.js';
+
+let default_locale = window.default_language;
+let fallback_locale = window.fallback_locale;
+let messages = window.messages;
+
+let vueLang = Vue.prototype.lang = new Lang({
+    messages: messages,
+    locale: default_locale,
+    fallback: fallback_locale
+});
+
+console.log(vueLang.messages);
+console.log(vueLang.get('messages.name'));
+
+
 import { Form, HasError, AlertError } from 'vform';
 
 window.Form = Form;

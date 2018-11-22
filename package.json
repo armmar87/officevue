@@ -22,6 +22,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.5.0",
         "admin-lte": "^3.0.0-alpha.2",
+        "lang.js": "^1.1.13",
         "vform": "^1.0.0",
         "vue-router": "^3.0.1"
     }

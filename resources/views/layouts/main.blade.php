@@ -122,8 +122,12 @@
     </footer>
 </div>
 <!-- ./wrapper -->
-
-
+<script>
+    window.default_locale = "{{ config('app.lang') }}";
+    window.fallback_locale = "{{ config('app.fallback_locale') }}";
+    window.messages = @json($messages);
+    window.base_url = '{{url('/')}}';
+</script>
 <script src="{{asset('/js/app.js')}}"></script>
 
 </body>
