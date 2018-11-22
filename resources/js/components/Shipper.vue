@@ -51,65 +51,67 @@
 
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add new</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="form-group">
-                            <label>{{lang.get('messages.name')}}</label>
-                            <input v-model="form.name" type="text" name="name" :placeholder="lang.get('messages.name')"
-                                   class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
-                            <has-error :form="form" field="name"></has-error>
+                    <form @submit.prevent="createUser">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add new</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <div class="modal-body">
 
-                        <div class="form-group">
-                            <label>{{lang.get('messages.last_name')}}</label>
-                            <input v-model="form.last_name" type="text" name="last_name" :placeholder="lang.get('messages.last_name')"
-                                   class="form-control" :class="{ 'is-invalid': form.errors.has('last_name') }">
-                            <has-error :form="form" field="last_name"></has-error>
+                            <div class="form-group">
+                                <label>{{lang.get('messages.name')}}</label>
+                                <input v-model="form.name" type="text" name="name" :placeholder="lang.get('messages.name')"
+                                       class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                                <has-error :form="form" field="name"></has-error>
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{lang.get('messages.last_name')}}</label>
+                                <input v-model="form.last_name" type="text" name="last_name" :placeholder="lang.get('messages.last_name')"
+                                       class="form-control" :class="{ 'is-invalid': form.errors.has('last_name') }">
+                                <has-error :form="form" field="last_name"></has-error>
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{lang.get('messages.phone_number')}}</label>
+                                <input v-model="form.phone_number" type="text" name="phone_number" :placeholder="lang.get('messages.phone_number')"
+                                       class="form-control" :class="{ 'is-invalid': form.errors.has('phone_number') }">
+                                <has-error :form="form" field="phone_number"></has-error>
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{lang.get('messages.email')}}</label>
+                                <input v-model="form.email" type="email" name="email" :placeholder="lang.get('messages.email')"
+                                       class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                                <has-error :form="form" field="email"></has-error>
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{lang.get('messages.password')}}</label>
+                                <input v-model="form.password" type="password" name="password" :placeholder="lang.get('messages.password')"
+                                       class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                                <has-error :form="form" field="password"></has-error>
+                            </div>
+
+                            <div class="form-group">
+                                <select v-model="form.user_type" name="user_type" id="user_type" class="form-control"
+                                       :class="{ 'is-invalid': form.errors.has('user_type') }">
+                                    <option value="">Select Role</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="shipper">Shipper</option>
+                                </select>
+                                <has-error :form="form" field="password"></has-error>
+                            </div>
+
+
                         </div>
-
-                        <div class="form-group">
-                            <label>{{lang.get('messages.phone_number')}}</label>
-                            <input v-model="form.phone_number" type="text" name="phone_number" :placeholder="lang.get('messages.phone_number')"
-                                   class="form-control" :class="{ 'is-invalid': form.errors.has('phone_number') }">
-                            <has-error :form="form" field="phone_number"></has-error>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button  type="submit" class="btn btn-success">Create</button>
                         </div>
-
-                        <div class="form-group">
-                            <label>{{lang.get('messages.email')}}</label>
-                            <input v-model="form.email" type="email" name="email" :placeholder="lang.get('messages.email')"
-                                   class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-                            <has-error :form="form" field="email"></has-error>
-                        </div>
-
-                        <div class="form-group">
-                            <label>{{lang.get('messages.password')}}</label>
-                            <input v-model="form.password" type="password" name="password" :placeholder="lang.get('messages.password')"
-                                   class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
-                            <has-error :form="form" field="password"></has-error>
-                        </div>
-
-                        <div class="form-group">
-                            <select v-model="form.user_type" name="user_type" id="user_type" class="form-control"
-                                   :class="{ 'is-invalid': form.errors.has('user_type') }">
-                                <option value="">Select Role</option>
-                                <option value="admin">Admin</option>
-                                <option value="shipper">Shipper</option>
-                            </select>
-                            <has-error :form="form" field="password"></has-error>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button :disabled="form.busy" type="submit" class="btn btn-success">Create</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -130,6 +132,12 @@
                     user_type: '',
                     remember: false
                 })
+            }
+        },
+        methods: {
+            createUser () {
+                this.form.post('user')
+                    .then(({ data }) => { console.log(data) })
             }
         },
         mounted() {

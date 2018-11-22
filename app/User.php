@@ -10,13 +10,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name','last_name','phone_number', 'email','user_type', 'password',
     ];
 
     /**
@@ -27,4 +29,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function storeUser($request)
+    {
+        $user = new self();
+        return self::saveUser($request, $user);
+    }
+
+    public static function updateUser($request, $id)
+    {
+        $user = self::find($id);
+        return self::saveUser($request, $user);
+    }
+
+    public static function saveUser($request, $user)
+    {
+        $user->fill($request->all());
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return true;
+    }
 }
