@@ -21,6 +21,7 @@ Vue.use(VueProgressBar, {
 
 import swal from 'sweetalert2'
 window.swal = swal;
+
 let toast = swal.mixin({
     toast: true,
     position: 'top-end',
@@ -69,6 +70,8 @@ Vue.filter('upText', function (text) {
 Vue.filter('myDate', function (created) {
     return moment(created).format("DD / MM / YY")
 });
+
+window.Fire = new Vue();
 
 
 
