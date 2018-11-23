@@ -20,15 +20,17 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>Last Name</th>
                                     <th>Phone number</th>
+                                    <th>Email</th>
+                                    <th>Register At</th>
                                     <th>Modify</th>
                                 </tr>
-                                <tr>
-                                    <td>183</td>
-                                    <td>John Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="tag tag-success">Approved</span></td>
+                                <tr v-for="user in users" :key="user.id">
+                                    <td>{{user.id}}</td>
+                                    <td>{{user.name + ' '+ user.last_name}}</td>
+                                    <td>{{user.phone_number}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.created_at}}</td>
                                     <td>
                                         <a href="" class="btn btn-info btn-xs">
                                             <i class="fa fa-edit"></i></a>
@@ -122,7 +124,7 @@
     export default {
         data () {
             return {
-                // Create a new form instance
+                users: {},
                 form: new Form({
                     name: '',
                     last_name: '',
@@ -135,13 +137,16 @@
             }
         },
         methods: {
+            loadUsers(){
+                axios.get('user').then(({ data }) => (this.users = data.data))
+            },
             createUser () {
                 this.form.post('user')
                     .then(({ data }) => { console.log(data) })
             }
         },
-        mounted() {
-            console.log('Component mounted.')
+        created() {
+            this.loadUsers();
         }
     }
 </script>
