@@ -28,6 +28,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         User::storeUser($request);
+        return response()->json( ['status' => 'success'], 200);
     }
 
     /**

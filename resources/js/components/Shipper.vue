@@ -27,10 +27,10 @@
                                 </tr>
                                 <tr v-for="user in users" :key="user.id">
                                     <td>{{user.id}}</td>
-                                    <td>{{user.name + ' '+ user.last_name}}</td>
+                                    <td>{{user.name + ' '+ user.last_name | upText}}</td>
                                     <td>{{user.phone_number}}</td>
                                     <td>{{user.email}}</td>
-                                    <td>{{user.created_at}}</td>
+                                    <td>{{user.created_at | myDate}}</td>
                                     <td>
                                         <a href="" class="btn btn-info btn-xs">
                                             <i class="fa fa-edit"></i></a>
@@ -138,15 +138,24 @@
         },
         methods: {
             loadUsers(){
-                axios.get('user').then(({ data }) => (this.users = data.data))
+
+                axios.get('user').then(({ data }) => (this.users = data.data));
             },
             createUser () {
-                this.form.post('user')
-                    .then(({ data }) => { console.log(data) })
+                this.$Progress.start();
+                this.form.post('user').then(({ data }) => { console.log(data) });
+
+                toast({
+                    type: 'success',
+                    title: 'Created in successfully',
+                });
+                $('#myModal').modal('hide');
+                this.$Progress.finish();
             }
         },
         created() {
             this.loadUsers();
+            // setInterval(() => this.loadUsers(), 3000);
         }
     }
 </script>

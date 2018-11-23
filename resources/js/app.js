@@ -10,6 +10,24 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import Lang from 'lang.js';
+import moment from 'moment';
+
+import VueProgressBar from 'vue-progressbar'
+Vue.use(VueProgressBar, {
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '5px'
+});
+
+import swal from 'sweetalert2'
+window.swal = swal;
+let toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1500
+});
+window.toast = toast;
 
 let default_locale = window.default_language;
 let fallback_locale = window.fallback_locale;
@@ -21,8 +39,8 @@ let vueLang = Vue.prototype.lang = new Lang({
     fallback: fallback_locale
 });
 
-console.log(vueLang.messages);
-console.log(vueLang.get('messages.name'));
+// console.log(vueLang.messages);
+// console.log(vueLang.get('messages.name'));
 
 
 import { Form, HasError, AlertError } from 'vform';
@@ -42,6 +60,14 @@ let routes = [
 let router = new VueRouter({
     mode: 'history',
     routes // сокращённая запись для `routes: routes`
+});
+
+Vue.filter('upText', function (text) {
+    return text.charAt(0).toUpperCase() + text.slice(1)
+});
+
+Vue.filter('myDate', function (created) {
+    return moment(created).format("DD / MM / YY")
 });
 
 
