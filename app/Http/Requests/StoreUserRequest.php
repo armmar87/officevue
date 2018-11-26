@@ -23,12 +23,19 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|' .config('rules.password'),
             'user_type' => 'required|string',
         ];
+        if ($this->method() == 'PUT') {
+            $rules['email'] = 'required|string|email|max:255|unique:users,email,' . $this->route()->parameter('user');
+            $rules['password'] = 'sometimes|string|' .config('rules.password');
+        } else {
+            $rules['email'] = 'required|string|email|max:255|unique:users';
+            $rules['password'] = 'required|string|' .config('rules.password');
+        }
+
+        return $rules;
     }
 }

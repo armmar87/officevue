@@ -71292,6 +71292,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             editmode: false,
             users: {},
             form: new Form({
+                id: '',
                 name: '',
                 last_name: '',
                 phone_number: '',
@@ -71305,20 +71306,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         updateUser: function updateUser() {
-            console.log(111);
-            //     this.$Progress.start();
-            //     this.form.post('user')
-            //         .then(() => {
-            //             Fire.$emit('AfterCreate');
-            //             $('#myModal').modal('hide');
-            //             toast({
-            //                 type: 'success',
-            //                 title: 'Created in successfully',
-            //             });
-            //             this.$Progress.finish();
-            //         })
-            //         .catch(() => {
-            //         })
+            var _this = this;
+
+            this.$Progress.start();
+            this.form.put('user/' + this.form.id).then(function () {
+                Fire.$emit('AfterCreate');
+                $('#myModal').modal('hide');
+                toast({
+                    type: 'success',
+                    title: 'Information has been updated'
+                });
+                _this.$Progress.finish();
+            }).catch(function () {
+                _this.$Progress.fail();
+            });
         },
         editModal: function editModal(user) {
             this.editmode = true;
@@ -71334,15 +71335,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             $('#myModal').modal('show');
         },
         loadUsers: function loadUsers() {
-            var _this = this;
+            var _this2 = this;
 
             axios.get('user').then(function (_ref) {
                 var data = _ref.data;
-                return _this.users = data.data;
+                return _this2.users = data.data;
             });
         },
         createUser: function createUser() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.$Progress.start();
             this.form.post('user').then(function () {
@@ -71352,11 +71353,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: 'success',
                     title: 'Created in successfully'
                 });
-                _this2.$Progress.finish();
+                _this3.$Progress.finish();
             }).catch(function () {});
         },
         deleteUser: function deleteUser(id) {
-            var _this3 = this;
+            var _this4 = this;
 
             swal({
                 title: 'Are you sure?',
@@ -71369,10 +71370,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (result) {
 
                 if (result.value) {
-                    _this3.form.delete('user/' + id).then(function (_ref2) {
+                    _this4.form.delete('user/' + id).then(function (_ref2) {
                         var data = _ref2.data;
 
-                        _this3.loadUsers();
+                        _this4.loadUsers();
                         swal('Deleted!', 'Your file has been deleted.', 'success');
                     }).catch(function () {
                         swal('Faild!', 'There was something wrong.', 'warning');
@@ -71382,11 +71383,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     created: function created() {
-        var _this4 = this;
+        var _this5 = this;
 
         this.loadUsers();
         Fire.$on('AfterCreate', function () {
-            _this4.loadUsers();
+            _this5.loadUsers();
         });
         // setInterval(() => this.loadUsers(), 3000);
     }
@@ -71452,10 +71453,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [
                         _c(
-                          "a",
+                          "button",
                           {
                             staticClass: "btn btn-info btn-xs",
-                            attrs: { href: "#" },
                             on: {
                               click: function($event) {
                                 _vm.editModal(user)
@@ -71466,10 +71466,9 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c(
-                          "a",
+                          "button",
                           {
                             staticClass: "btn btn-danger btn-xs remove",
-                            attrs: { href: "#" },
                             on: {
                               click: function($event) {
                                 _vm.deleteUser(user.id)

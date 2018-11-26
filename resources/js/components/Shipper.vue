@@ -32,11 +32,11 @@
                                     <td>{{user.email}}</td>
                                     <td>{{user.created_at | myDate}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-info btn-xs" @click="editModal(user)">
-                                            <i class="fa fa-edit"></i></a>
-                                        <a href="#" @click="deleteUser(user.id)" class="btn btn-danger btn-xs remove">
+                                        <button class="btn btn-info btn-xs" @click="editModal(user)">
+                                            <i class="fa fa-edit"></i></button>
+                                        <button @click="deleteUser(user.id)" class="btn btn-danger btn-xs remove">
                                             <i class="fa fa-trash"></i>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -129,6 +129,7 @@
                 editmode: false,
                 users: {},
                 form: new Form({
+                    id: '',
                     name: '',
                     last_name: '',
                     phone_number: '',
@@ -141,20 +142,20 @@
         },
         methods: {
             updateUser () {
-                console.log(111)
-            //     this.$Progress.start();
-            //     this.form.post('user')
-            //         .then(() => {
-            //             Fire.$emit('AfterCreate');
-            //             $('#myModal').modal('hide');
-            //             toast({
-            //                 type: 'success',
-            //                 title: 'Created in successfully',
-            //             });
-            //             this.$Progress.finish();
-            //         })
-            //         .catch(() => {
-            //         })
+                this.$Progress.start();
+                this.form.put('user/'+this.form.id )
+                    .then(() => {
+                        Fire.$emit('AfterCreate');
+                        $('#myModal').modal('hide');
+                        toast({
+                            type: 'success',
+                            title: 'Information has been updated',
+                        });
+                        this.$Progress.finish();
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    })
             },
             editModal(user) {
                 this.editmode = true;

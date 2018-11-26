@@ -49,9 +49,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUserRequest $request, $id)
     {
-        //
+        User::updateUser($request, $id);
+        return response()->json( ['status' => 'success'], 200);
     }
 
     /**
