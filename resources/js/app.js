@@ -55,7 +55,7 @@ Vue.use(VueRouter);
 
 let routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue') },
-    { path: '/shipper', component: require('./components/Shipper.vue') },
+    { path: '/user', component: require('./components/User.vue') },
     { path: '/developer', component: require('./components/passport/Developer.vue') }
 ];
 

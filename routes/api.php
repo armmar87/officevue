@@ -26,4 +26,8 @@ use Illuminate\Http\Request;
 //});
 
 
-Route::apiResource('user', 'API\UserController');
+Route::group(['middleware' => 'auth:api'], function() {
+
+    Route::apiResource('user', 'API\UserController');
+
+});

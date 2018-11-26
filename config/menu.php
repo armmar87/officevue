@@ -7,8 +7,8 @@ return [
         'icon' => 'th',
     ],
     [
-        'name' => 'Shipper',
-        'url' => '/shipper',
+        'name' => 'User',
+        'url' => '/user',
         'icon' => 'user',
     ],
     [
