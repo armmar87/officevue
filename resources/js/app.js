@@ -55,7 +55,8 @@ Vue.use(VueRouter);
 
 let routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue') },
-    { path: '/shipper', component: require('./components/Shipper.vue') }
+    { path: '/shipper', component: require('./components/Shipper.vue') },
+    { path: '/developer', component: require('./components/passport/Developer.vue') }
 ];
 
 let router = new VueRouter({
@@ -82,6 +83,21 @@ window.Fire = new Vue();
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
+
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue')
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue')
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue')
+);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 

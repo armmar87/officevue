@@ -45,24 +45,17 @@
 
             <nav class="mt-2">
 
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item">
-                        <router-link to="/dashboard" class="nav-link">
-                            <i class="nav-icon fa fa-th"></i>
-                            <p>Dashboard</p>
-                        </router-link>
-                    </li>
-                </ul>
+                @foreach(config('menu') AS $menu)
 
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item">
-                        <router-link to="/shipper" class="nav-link">
-                            <i class="nav-icon fa fa-user"></i>
-                            <p>Shipper</p>
-                        </router-link>
-                    </li>
-                </ul>
-
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <router-link to="{{$menu['url']}}" class="nav-link">
+                                <i class="nav-icon fa fa-{{$menu['icon']}}"></i>
+                                <p>{{$menu['name']}}</p>
+                            </router-link>
+                        </li>
+                    </ul>
+                @endforeach
 
             </nav>
             <!-- /.sidebar-menu -->
