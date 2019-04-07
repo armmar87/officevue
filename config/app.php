@@ -164,6 +164,7 @@ return [
          * Package Service Providers...
          */
         KgBot\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Application Service Providers...

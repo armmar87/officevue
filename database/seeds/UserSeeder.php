@@ -11,7 +11,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->delete();
+        DB::table('users')->truncate();
         //insert some dummy records
         DB::table('users')->insert(array(
                 array(
